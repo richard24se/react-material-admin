@@ -6,9 +6,9 @@ import {
   FormatSize as TypographyIcon,
   FilterNone as UIElementsIcon,
   BorderAll as TableIcon,
-  QuestionAnswer as SupportIcon,
-  LibraryBooks as LibraryIcon,
-  HelpOutline as FAQIcon,
+//  QuestionAnswer as SupportIcon,
+//  LibraryBooks as LibraryIcon,
+//  HelpOutline as FAQIcon,
   ArrowBack as ArrowBackIcon,
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
@@ -55,6 +55,14 @@ const structure = [
       { label: "Maps", link: "/app/ui/maps" },
     ],
   },
+  {
+    id:5,
+    label: "Testing DOT",
+    icon: <Dot size="large" color="primary" />,
+    link: ""
+
+  },
+  /*
   { id: 5, type: "divider" },
   { id: 6, type: "title", label: "HELP" },
   { id: 7, label: "Library", link: "", icon: <LibraryIcon /> },
@@ -79,7 +87,7 @@ const structure = [
     label: "Background",
     link: "",
     icon: <Dot size="large" color="secondary" />,
-  },
+  },*/
 ];
 
 function Sidebar({ location }) {

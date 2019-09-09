@@ -5,9 +5,14 @@ services:
     build: 
       context: .
       dockerfile: ./docker/react.Dockerfile
+    #stdin_open: true
+    #tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
     command: >    
       sh -c "ls -ls && yarn start" 
-    #volumes:
-    #  - ./react:/react
+    volumes:
+      - ./react/src:/react/src
+      - ./.env:/react/.env.development
     ports:
-      - "3000:3000"
+      - "2000:3000"

@@ -156,4 +156,7 @@ export default makeStyles(theme => ({
   sendButtonIcon: {
     marginLeft: theme.spacing(2),
   },
+  red_soft: {
+    backgroundColor: "#FB4140"
+  }
 }));

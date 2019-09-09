@@ -1,5 +1,8 @@
 import { makeStyles } from "@material-ui/styles";
 
+//Colors from material-ui
+import greenBase from '@material-ui/core/colors/green';
+const green = greenBase[200]
 export default makeStyles(theme => ({
   container: {
     height: "100vh",
@@ -145,4 +148,18 @@ export default makeStyles(theme => ({
       bottom: theme.spacing(2),
     },
   },
+  formButtonsCenter: {
+    width: "100%",
+    marginTop: theme.spacing(4),
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center"
+  },
+  typRed:{
+    color: "red"
+  },
+  typGreen: {
+    color: greenBase[600]
+  }
+
 }));

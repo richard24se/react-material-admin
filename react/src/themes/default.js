@@ -1,6 +1,7 @@
 import tinycolor from "tinycolor2";
 
-const primary = "#536DFE";
+const primary = "#E32827";
+const primary_li = "#FB4140";
 const secondary = "#FF5C93";
 const warning = "#FFC260";
 const success = "#3CD4A0";
@@ -17,6 +18,15 @@ export default {
         .lighten(lightenRate)
         .toHexString(),
       dark: tinycolor(primary)
+        .darken(darkenRate)
+        .toHexString(),
+    },
+    primary_li: {
+      main: primary_li,
+      light: tinycolor(primary_li)
+        .lighten(lightenRate)
+        .toHexString(),
+      dark: tinycolor(primary_li)
         .darken(darkenRate)
         .toHexString(),
     },

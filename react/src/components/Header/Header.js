@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -7,7 +8,11 @@ import {
   Menu,
   MenuItem,
   Fab,
+
 } from "@material-ui/core";
+import Chip from '@material-ui/core/Chip';
+//import FaceIcon from '@material-ui/icons/Face';
+import SimCardIcon from '@material-ui/icons/SimCard';
 import {
   Menu as MenuIcon,
   MailOutline as MailIcon,
@@ -33,7 +38,14 @@ import {
   useLayoutDispatch,
   toggleSidebar,
 } from "../../context/LayoutContext";
-import { useUserDispatch, signOut } from "../../context/UserContext";
+//import { useUserDispatch, signOut } from "../../context/UserContext";
+
+//Redux actions
+import { connect } from 'react-redux';
+import { userActions } from '../../redux/actions';
+
+//History constant!
+import {history} from '../../redux/helpers';
 
 const messages = [
   {
@@ -88,13 +100,13 @@ const notifications = [
   },
 ];
 
-export default function Header(props) {
+function Header(props) {
   var classes = useStyles();
 
   // global
   var layoutState = useLayoutState();
   var layoutDispatch = useLayoutDispatch();
-  var userDispatch = useUserDispatch();
+  //var userDispatch = useUserDispatch();
 
   // local
   var [mailMenu, setMailMenu] = useState(null);
@@ -103,6 +115,26 @@ export default function Header(props) {
   var [isNotificationsUnread, setIsNotificationsUnread] = useState(true);
   var [profileMenu, setProfileMenu] = useState(null);
   var [isSearchOpen, setSearchOpen] = useState(false);
+
+  //var [pirateState, setPirateState] = useState(null);
+  //Handle init state
+  const {dispatch} = props;
+  
+  useEffect(() => {
+    dispatch(userActions.getAll())
+  }, [dispatch]);
+
+  //const after_dispatch = useContext(dispatch(userActions.getAll()))
+
+  const { user } = props;
+
+  var handleLogout = (e) =>{
+    /*
+    const { dispatch } = props;
+    dispatch(userActions.logout() );*/
+    //const user = null
+    history.push("/login")
+  };
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -136,8 +168,15 @@ export default function Header(props) {
           )}
         </IconButton>
         <Typography variant="h6" weight="medium" className={classes.logotype}>
-          React Material Admin
+          GestAgro 
         </Typography>
+        <Chip
+          icon={<SimCardIcon />}
+          label="IP: 127.0.0.1"
+          clickable
+          className={classNames(classes.chip,classes.red_soft)}
+          color="primary"
+        />
         <div className={classes.grow} />
         <div
           className={classNames(classes.search, {
@@ -288,6 +327,7 @@ export default function Header(props) {
           <div className={classes.profileMenuUser}>
             <Typography variant="h4" weight="medium">
               John Smith
+              {user.firstName}
             </Typography>
             <Typography
               className={classes.profileMenuLink}
@@ -326,8 +366,9 @@ export default function Header(props) {
             <Typography
               className={classes.profileMenuLink}
               color="primary"
-              onClick={() => signOut(userDispatch, props.history)}
-            >
+              onClick={() => handleLogout()}
+              to="/login"
+            >              
               Sign Out
             </Typography>
           </div>
@@ -336,3 +377,13 @@ export default function Header(props) {
     </AppBar>
   );
 }
+function mapStateToProps(state) {
+  const { users, authentication } = state;
+  const { user } = authentication;
+  return {
+      user,
+      users
+  };
+}
+const connectedHeader = connect(mapStateToProps)(Header);
+export default withRouter(connectedHeader);
